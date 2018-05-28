@@ -1,0 +1,25 @@
+public class Employee {
+    private String name;
+    private int ID;
+    private int hourlyWage;
+    public Employee (String n, int i, int h) {
+        this.name = n;
+        this.ID = i;
+        this.hourlyWage = h;
+    }
+    public void setWage (int h) {
+        this.hourlyWage = h;
+    }
+    public int getWage () {
+        return this.hourlyWage;
+    }
+    public void setName (String n) {
+        this.name = n;
+    }   
+    public String getName () {
+        return this.name;
+    }   
+    public int getID () {
+        return this.ID;
+    }
+}
