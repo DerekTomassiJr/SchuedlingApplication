@@ -1,0 +1,376 @@
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+public class SchedulingAPP {
+  public static int employees = 1;
+  public static String [] column = {"Employee", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Total Hours"};
+  public static String [][] data = new String[100][9];
+  public static String [] employeeNames = new String[100];
+  public static Employee [] employeeList = new Employee[100];
+  public static void main (String [] args) {
+    data[0][0] = "Employee";
+    data[0][1] = "Sunday";
+    data[0][2] = "Monday";
+    data[0][3] = "Tuesday";
+    data[0][4] = "Wednesday";
+    data[0][5] = "Thursday";
+    data[0][6] = "Friday";
+    data[0][7] = "Saturday";
+    data[0][8] = "Total Hours";
+    JFrame homeFrame = new JFrame();
+    homeFrame.setSize(500,500);
+    homeFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    JPanel homePanel = new JPanel();
+    homeFrame.add(homePanel);
+    homePage(homePanel,homeFrame);
+    homeFrame.setVisible(true);
+  }
+  public static void homePage (JPanel panel, JFrame frame) {
+    panel.setLayout(null);
+    JLabel header = new JLabel("Select either to view or edit the schedule");
+    header.setBounds(130,20,300,20);
+    panel.add(header);
+    JButton viewButton = new JButton("View");
+    viewButton.setBounds(150,100,100,20);
+    panel.add(viewButton);
+    JButton editButton = new JButton("Edit");
+    editButton.setBounds(260,100,100,20);
+    panel.add(editButton);
+    viewButton.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        JFrame viewFrame = new JFrame();
+        viewFrame.setSize(1920,1080);
+        viewFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        JPanel viewPanel = new JPanel();
+        viewFrame.add(viewPanel);
+        frame.setVisible(false);
+        viewPage(viewPanel,viewFrame);
+        viewFrame.setVisible(true);
+      }
+    });
+    editButton.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        JFrame editMenuFrame = new JFrame();
+        editMenuFrame.setSize(500,500);
+        editMenuFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        JPanel editMenuPanel = new JPanel();
+        editMenuFrame.add(editMenuPanel);
+        frame.setVisible(false);
+        editMenuPage(editMenuPanel,editMenuFrame);
+        editMenuFrame.setVisible(true);
+      }
+    });
+  }
+  public static void editMenuPage (JPanel panel, JFrame frame) {
+    panel.setLayout(null);
+    JLabel header = new JLabel("Select Whether to Create a Schedule or");
+    header.setBounds(130,100,300,20);
+    panel.add(header);
+    JLabel header2 = new JLabel("Add a New Employee");
+    header2.setBounds(190,130,300,20);
+    panel.add(header2);
+    JButton createButton = new JButton("Create");
+    createButton.setBounds(150,200,100,20);
+    panel.add(createButton);
+    JButton addButton = new JButton("Add");
+    addButton.setBounds(260,200,100,20);
+    panel.add(addButton);
+    createButton.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        JFrame createFrame = new JFrame();
+        createFrame.setSize(500,500);
+        createFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        JPanel createPanel = new JPanel();
+        createFrame.add(createPanel);
+        frame.setVisible(false);
+        createPage(createPanel,createFrame);
+        createFrame.setVisible(true);
+      }
+    });
+    addButton.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        JFrame addFrame = new JFrame();
+        addFrame.setSize(500,500);
+        addFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        JPanel addPanel = new JPanel();
+        addFrame.add(addPanel);
+        frame.setVisible(false);
+        addPage(addPanel,addFrame);
+        addFrame.setVisible(true);
+      }
+    });
+  }
+  public static void createPage (JPanel panel, JFrame frame) {
+    panel.setLayout(null);
+    String [] tempEmployeeNames = new String [employees - 1];
+    for (int i = 0; i < tempEmployeeNames.length; i++) {
+      tempEmployeeNames[i] = employeeNames[i];
+    }
+    JLabel nameLabel = new JLabel("Employee: ");
+    nameLabel.setBounds(50,50,100,20);
+    panel.add(nameLabel);
+    JComboBox nameCombo = new JComboBox(tempEmployeeNames);
+    nameCombo.setBounds(160,47,160,30);
+    panel.add(nameCombo);
+    String [] AMPM = {"AM", "PM"};
+    JLabel sunday = new JLabel("Sunday: ");
+    sunday.setBounds(50,80,100,20);
+    panel.add(sunday);
+    JTextField sundayStartTime = new JTextField(20);
+    sundayStartTime.setBounds(160,80,50,20);
+    panel.add(sundayStartTime);
+    JComboBox sundayStartAMPM = new JComboBox(AMPM);
+    sundayStartAMPM.setBounds(220,80,70,20);
+    panel.add(sundayStartAMPM);
+    JTextField sundayEndTime = new JTextField(20);
+    sundayEndTime.setBounds(300,80,50,20);
+    panel.add(sundayEndTime);
+    JComboBox sundayEndAMPM = new JComboBox(AMPM);
+    sundayEndAMPM.setBounds(360,80,70,20);
+    panel.add(sundayEndAMPM);
+    JLabel monday = new JLabel("Monday: ");
+    monday.setBounds(50,110,100,20);
+    panel.add(monday);
+    JTextField mondayStartTime = new JTextField(20);
+    mondayStartTime.setBounds(160,110,50,20);
+    panel.add(mondayStartTime);
+    JComboBox mondayStartAMPM = new JComboBox(AMPM);
+    mondayStartAMPM.setBounds(220,110,70,20);
+    panel.add(mondayStartAMPM);
+    JTextField mondayEndTime = new JTextField(20);
+    mondayEndTime.setBounds(300,110,50,20);
+    panel.add(mondayEndTime);
+    JComboBox mondayEndAMPM = new JComboBox(AMPM);
+    mondayEndAMPM.setBounds(360,110,70,20);
+    panel.add(mondayEndAMPM);
+    JLabel tuesday = new JLabel("Tuesday: ");
+    tuesday.setBounds(50,140,100,20);
+    panel.add(tuesday);
+    JTextField tuesdayStartTime = new JTextField(20);
+    tuesdayStartTime.setBounds(160,140,50,20);
+    panel.add(tuesdayStartTime);
+    JComboBox tuesdayStartAMPM = new JComboBox(AMPM);
+    tuesdayStartAMPM.setBounds(220,140,70,20);
+    panel.add(tuesdayStartAMPM);
+    JTextField tuesdayEndTime = new JTextField(20);
+    tuesdayEndTime.setBounds(300,140,50,20);
+    panel.add(tuesdayEndTime);
+    JComboBox tuesdayEndAMPM = new JComboBox(AMPM);
+    tuesdayEndAMPM.setBounds(360,140,70,20);
+    panel.add(tuesdayEndAMPM);
+    JLabel wednesday = new JLabel("Wednesday: ");
+    wednesday.setBounds(50,170,100,20);
+    panel.add(wednesday);
+    JTextField wednesdayStartTime = new JTextField(20);
+    wednesdayStartTime.setBounds(160,170,50,20);
+    panel.add(wednesdayStartTime);
+    JComboBox wednesdayStartAMPM = new JComboBox(AMPM);
+    wednesdayStartAMPM.setBounds(220,170,70,20);
+    panel.add(wednesdayStartAMPM);
+    JTextField wednesdayEndTime = new JTextField(20);
+    wednesdayEndTime.setBounds(300,170,50,20);
+    panel.add(wednesdayEndTime);
+    JComboBox wednesdayEndAMPM = new JComboBox(AMPM);
+    wednesdayEndAMPM.setBounds(360,170,70,20);
+    panel.add(wednesdayEndAMPM);
+    JLabel thursday = new JLabel("Thursday: ");
+    thursday.setBounds(50,200,100,20);
+    panel.add(thursday);
+    JTextField thursdayStartTime = new JTextField(20);
+    thursdayStartTime.setBounds(160,200,50,20);
+    panel.add(thursdayStartTime);
+    JComboBox thursdayStartAMPM = new JComboBox(AMPM);
+    thursdayStartAMPM.setBounds(220,200,70,20);
+    panel.add(thursdayStartAMPM);
+    JTextField thursdayEndTime = new JTextField(20);
+    thursdayEndTime.setBounds(300,200,50,20);
+    panel.add(thursdayEndTime);
+    JComboBox thursdayEndAMPM = new JComboBox(AMPM);
+    thursdayEndAMPM.setBounds(360,200,70,20);
+    panel.add(thursdayEndAMPM);
+    JLabel friday = new JLabel("Friday: ");
+    friday.setBounds(50,230,100,20);
+    panel.add(friday);
+    JTextField fridayStartTime = new JTextField(20);
+    fridayStartTime.setBounds(160,230,50,20);
+    panel.add(fridayStartTime);
+    JComboBox fridayStartAMPM = new JComboBox(AMPM);
+    fridayStartAMPM.setBounds(220,230,70,20);
+    panel.add(fridayStartAMPM);
+    JTextField fridayEndTime = new JTextField(20);
+    fridayEndTime.setBounds(300,230,50,20);
+    panel.add(fridayEndTime);
+    JComboBox fridayEndAMPM = new JComboBox(AMPM);
+    fridayEndAMPM.setBounds(360,230,70,20);
+    panel.add(fridayEndAMPM);
+    JLabel saturday = new JLabel("Saturday: ");
+    saturday.setBounds(50,260,100,20);
+    panel.add(saturday);
+    JTextField saturdayStartTime = new JTextField(20);
+    saturdayStartTime.setBounds(160,260,50,20);
+    panel.add(saturdayStartTime);
+    JComboBox saturdayStartAMPM = new JComboBox(AMPM);
+    saturdayStartAMPM.setBounds(220,260,70,20);
+    panel.add(saturdayStartAMPM);
+    JTextField saturdayEndTime = new JTextField(20);
+    saturdayEndTime.setBounds(300,260,50,20);
+    panel.add(saturdayEndTime);
+    JComboBox saturdayEndAMPM = new JComboBox(AMPM);
+    saturdayEndAMPM.setBounds(360,260,70,20);
+    panel.add(saturdayEndAMPM);
+    JLabel statusLabel = new JLabel("");
+    statusLabel.setBounds(160,320,300,20);
+    panel.add(statusLabel);
+    JButton submitButton = new JButton("Submit");
+    submitButton.setBounds(345,290,80,20);
+    panel.add(submitButton);
+    //Creating Arrays
+    JTextField [] offChecker = new JTextField[7];
+    offChecker[0] = sundayStartTime;
+    offChecker[1] = mondayStartTime;
+    offChecker[2] = tuesdayStartTime;
+    offChecker[3] = wednesdayStartTime;
+    offChecker[4] = thursdayStartTime;
+    offChecker[5] = fridayStartTime;
+    offChecker[6] = saturdayStartTime;
+    JComboBox [] startAMPMHolder = new JComboBox[7];
+    startAMPMHolder[0] = sundayStartAMPM;
+    startAMPMHolder[1] = mondayStartAMPM;
+    startAMPMHolder[2] = tuesdayStartAMPM;
+    startAMPMHolder[3] = wednesdayStartAMPM;
+    startAMPMHolder[4] = thursdayStartAMPM;
+    startAMPMHolder[5] = fridayStartAMPM;
+    startAMPMHolder[6] = saturdayStartAMPM;
+    JTextField [] endTimeHolder = new JTextField[7];
+    endTimeHolder[0] = sundayEndTime;
+    endTimeHolder[1] = mondayEndTime;
+    endTimeHolder[2] = tuesdayEndTime;
+    endTimeHolder[3] = wednesdayEndTime;
+    endTimeHolder[4] = thursdayEndTime;
+    endTimeHolder[5] = fridayEndTime;
+    endTimeHolder[6] = saturdayEndTime;
+    JComboBox [] endAMPMHolder = new JComboBox[7];
+    endAMPMHolder[0] = sundayEndAMPM;
+    endAMPMHolder[1] = mondayEndAMPM;
+    endAMPMHolder[2] = tuesdayEndAMPM;
+    endAMPMHolder[3] = wednesdayEndAMPM;
+    endAMPMHolder[4] = thursdayEndAMPM;
+    endAMPMHolder[5] = fridayEndAMPM;
+    endAMPMHolder[6] = saturdayEndAMPM;
+    //End of Array Creation
+    submitButton.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        data[employeeList[nameCombo.getSelectedIndex()].getID()][0] = employeeList[nameCombo.getSelectedIndex()].getName();
+        for (int i = 0; i < 7; i++) {
+          if (offChecker[i].getText().equalsIgnoreCase("OFF")) {
+            data[employeeList[nameCombo.getSelectedIndex()].getID()][i + 1] = "OFF";
+          } else {
+            data[employeeList[nameCombo.getSelectedIndex()].getID()][i + 1] = offChecker[i].getText() + startAMPMHolder[i].getSelectedItem() + " - " + endTimeHolder[i].getText() + endAMPMHolder[i].getSelectedItem();
+          }
+        }
+        data[employeeList[nameCombo.getSelectedIndex()].getID()][8] = Integer.toString(computingHoursWorked(offChecker, startAMPMHolder, endTimeHolder, endAMPMHolder));
+        statusLabel.setText("Schedule Successfully Submitted");
+      }
+    });
+    JButton homeButton = new JButton("Go Back");
+    homeButton.setBounds(255,290,80,20);
+    panel.add(homeButton);
+    homeButton.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        JFrame homeFrame = new JFrame();
+        homeFrame.setSize(500,500);
+        homeFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        JPanel homePanel = new JPanel();
+        homeFrame.add(homePanel);
+        frame.setVisible(false);
+        homePage(homePanel,homeFrame);
+        homeFrame.setVisible(true);
+      }
+    });
+  }
+  public static void addPage (JPanel panel, JFrame frame) {
+    panel.setLayout(null);
+    JLabel nameLabel = new JLabel("Employee Name: ");
+    nameLabel.setBounds(50,50,120,20);
+    panel.add(nameLabel);
+    JTextField nameText = new JTextField(20);
+    nameText.setBounds(180,50,160,20);
+    panel.add(nameText);
+    JLabel IDLabel = new JLabel("ID: ");
+    IDLabel.setBounds(50,80,120,20);
+    panel.add(IDLabel);
+    JTextField IDText = new JTextField(20);
+    IDText.setBounds(180,80,160,20);
+    panel.add(IDText);
+    JLabel wageLabel = new JLabel("Hourly Wage: ");
+    wageLabel.setBounds(50,110,120,20);
+    panel.add(wageLabel);
+    JTextField wageText = new JTextField(20);
+    wageText.setBounds(180,110,160,20);
+    panel.add(wageText);
+    JLabel statusLabel = new JLabel("");
+    statusLabel.setBounds(80,170,300,20);
+    panel.add(statusLabel);
+    JButton submitButton = new JButton("Submit");
+    submitButton.setBounds(257,140,80,20);
+    panel.add(submitButton);
+    JButton homeButton = new JButton("Go Back");
+    homeButton.setBounds(167,140,80,20);
+    panel.add(homeButton);
+    homeButton.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        JFrame homeFrame = new JFrame();
+        homeFrame.setSize(500,500);
+        homeFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        JPanel homePanel = new JPanel();
+        homeFrame.add(homePanel);
+        frame.setVisible(false);
+        homePage(homePanel,homeFrame);
+        homeFrame.setVisible(true);
+      }
+    });
+    submitButton.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        if (!(IDText.getText().equals(Integer.toString(employees)))) {
+          statusLabel.setText("That is invalid ID Number");
+        } else {
+          statusLabel.setText("You Have Successfully Created a New Employee");
+          employeeList[employees - 1] = new Employee(nameText.getText(),Integer.parseInt(IDText.getText()),Integer.parseInt(wageText.getText()));
+          employeeNames[employees - 1] = employeeList[employees - 1].getName();
+          employees++;
+        }
+      }
+    });
+  }
+  public static int computingHoursWorked (JTextField[] offChecker, JComboBox[] startAMPMHolder, JTextField[] endTimeHolder, JComboBox[] endAMPMHolder) {
+    int weekTotal = 0;
+    for (int i = 0; i < 7; i++) {
+      if (!(offChecker[i].getText().equalsIgnoreCase("OFF"))) {
+          int colonPOS = offChecker[i].getText().indexOf(':');
+        int start = Integer.parseInt(offChecker[i].getText().substring(0, colonPOS));
+        int endColonPOS = endTimeHolder[i].getText().indexOf(':');
+        int end = Integer.parseInt(endTimeHolder[i].getText().substring(0, endColonPOS));
+        if (startAMPMHolder[i].getSelectedItem().equals("PM")) {
+          start += 12;
+        }
+        if (endAMPMHolder[i].getSelectedItem().equals("PM")) {
+        end += 12;
+        }
+        weekTotal += end - start;
+        }
+    }
+    return weekTotal;
+  }
+  public static void viewPage (JPanel panel, JFrame frame) {
+    panel.setLayout(null);
+    String [][] newData = new String [employees][9];
+    for (int r = 0; r < employees; r++) {
+      for (int c = 0; c < 9; c++) {
+        newData[r][c] = data[r][c];
+      }
+    }
+    JTable scheduleTable = new JTable(newData,column);
+    scheduleTable.setBounds(0,0,1450,1080);
+    panel.add(scheduleTable);
+  }
+}
